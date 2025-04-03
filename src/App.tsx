@@ -1,8 +1,10 @@
-import  RouterProvider  from "./routes/RouterProvider.tsx";
+import RouterProvider from "./routes/RouterProvider.tsx";
 
 function App() {
   return (
+
     <RouterProvider />
+
   );
 }
 
