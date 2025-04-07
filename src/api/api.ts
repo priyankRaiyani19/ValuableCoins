@@ -1,5 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
+
+import type { CoinResponse, CoinSearchResponse } from "../Types/types";
+
 const API_KEY = "CG-YvgLJyYaAipFfW9An6vRNwkG";
-const BASE_URL = "https://api.coingecko.com/api/v3/coins/markets";
+const MARKET_URL = "https://api.coingecko.com/api/v3/coins/markets";
+const SEARCH_URL = "https://api.coingecko.com/api/v3/search";
+const COIN_DETAIL_URL = "https://api.coingecko.com/api/v3/coins";
 
 const defaultOptions = {
   method: "GET",
@@ -9,21 +15,7 @@ const defaultOptions = {
   },
 };
 
-type CoinGeckoResponse = {
-  id: string;
-  rank: string;
-  name: string;
-  image: string;
-  current_price: number;
-  market_cap: number;
-  market_cap_rank: number;
-  total_volume: number;
-  market_cap_change_percentage_24h: number;
-  price_change_percentage_24h: number;
-  price_change_24h: number;
-};
-
-export async function fetchCoins(): Promise<CoinGeckoResponse[]> {
+export async function fetchCoins(): Promise<CoinResponse[]> {
   const params = new URLSearchParams({
     vs_currency: "usd",
     order: "market_cap_desc",
@@ -31,18 +23,53 @@ export async function fetchCoins(): Promise<CoinGeckoResponse[]> {
     priceChange: "1h,24h,7d",
   });
 
-  const url = `${BASE_URL}?${params}`;
+  const url = `${MARKET_URL}?${params}`;
 
-  try {
-    const response = await fetch(url, defaultOptions);
-    if (!response.ok)
-      throw new Error("Network response was not ok");
-    return response.json();
-  }
-  catch (error) {
-    console.error("Error fetching coins:", error);
-    throw error;
-  }
+  const response = await fetch(url, defaultOptions);
+  if (!response.ok)
+    throw new Error("Network response was not ok");
+  return response.json();
 }
 
-export type { CoinGeckoResponse };
+export function useCoins() {
+  return useQuery<CoinResponse[], Error>({
+    queryKey: ["coins"],
+    queryFn: fetchCoins,
+  });
+}
+
+export async function searchCoins(query: string): Promise<CoinSearchResponse> {
+  const url = `${SEARCH_URL}?query=${encodeURIComponent(query)}`;
+
+  const response = await fetch(url, defaultOptions);
+  if (!response.ok)
+    throw new Error("Search request failed");
+  return response.json();
+}
+
+export function useCoinSearch(query: string) {
+  return useQuery<CoinSearchResponse, Error>({
+    queryKey: ["coinSearch", query],
+    queryFn: () => searchCoins(query),
+    enabled: !!query,
+  });
+}
+
+export async function fetchCoinDetails(id: string): Promise<any> {
+  const url = `${COIN_DETAIL_URL}/${id}`;
+
+  const response = await fetch(url, defaultOptions);
+  if (!response.ok)
+    throw new Error("Failed to fetch coin details");
+  return response.json();
+}
+
+export function useCoinDetails(id: string) {
+  return useQuery({
+    queryKey: ["coinDetails", id],
+    queryFn: () => fetchCoinDetails(id),
+    enabled: !!id,
+  });
+}
+
+export type { CoinResponse, CoinSearchResponse };

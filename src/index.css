@@ -67,7 +67,7 @@
 
 .pl__dot:before {
   animation-name: pushInOut1724;
-  background-color: var(--bg);
+  /*background-color: var(--bg);*/
   border-radius: inherit;
   box-shadow: 0.05em 0 0.1em rgba(255, 255, 255) inset;
   height: inherit;
@@ -76,7 +76,7 @@
 
 .pl__dot:after {
   animation-name: pushInOut2724;
-  background-color: var(--primary1);
+  /*background-color: var(--primary1);/*/
   border-radius: 0.75em;
   box-shadow:
     0.1em 0.3em 0.2em rgba(255, 255, 255) inset,
@@ -225,7 +225,7 @@
   font-size: 1rem;
   max-width: 5rem;
   position: relative;
-  text-shadow: 0 0 0.1em var(--fg-t);
+  /*text-shadow: 0 0 0.1em var(--fg-t);*/
   transform: rotateZ(-45deg);
 }
 
@@ -256,19 +256,19 @@
 @keyframes pushInOut1724 {
   from {
     animation-timing-function: ease-in;
-    background-color: var(--bg);
+    /*background-color: var(--bg);*/
     transform: translate(0, 0);
   }
 
   25% {
     animation-timing-function: ease-out;
-    background-color: var(--primary2);
+    /*background-color: var(--primary2);/*/
     transform: translate(-71%, -71%);
   }
 
   50%,
   to {
-    background-color: var(--bg);
+    /*background-color: var(--bg);*/
     transform: translate(0, 0);
   }
 }
@@ -276,19 +276,19 @@
 @keyframes pushInOut2724 {
   from {
     animation-timing-function: ease-in;
-    background-color: var(--bg);
+    /*background-color: var(--bg);*/
     clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
   }
 
   25% {
     animation-timing-function: ease-out;
-    background-color: var(--primary1);
+    /*background-color: var(--primary1);*/
     clip-path: polygon(0 25%, 100% 25%, 100% 100%, 0 100%);
   }
 
   50%,
   to {
-    background-color: var(--bg);
+    /*background-color: var(--bg);*/
     clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
   }
 }

@@ -1,19 +1,13 @@
-import { FaSearch } from "react-icons/fa";
+import SearchBar from "./SearchBar";
 
 function Header() {
   return (
-
-    <div className="flex justify-between p-[2rem] w-full text-white">
-      <div className="header-name text-white text-[2rem] tracking-wider font-medium">
-        CryptoS
-      </div>
-      <div className="flex items-center bg-transparent border-2 border-white rounded-lg px-[1rem] text-white ]">
-        <input
-          type="text"
-          placeholder="Coin name..."
-          className="w-full outline-0 text-[1rem] text-white"
-        />
-        <FaSearch className="text-[1.5rem]" />
+    <div className="flex flex-col items-center w-full text-white py-6 relative">
+      <div className="flex justify-between items-center w-full px-6">
+        <div className="text-white text-3xl font-semibold tracking-wide">
+          CryptoS
+        </div>
+        <SearchBar />
       </div>
     </div>
   );
