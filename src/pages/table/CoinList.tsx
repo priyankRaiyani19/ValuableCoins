@@ -3,22 +3,11 @@ import { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
+import type { Coin } from "../../Types/types.ts";
+
 import { fetchCoins } from "../../api/api.ts";
 import Loader from "../../components/common/loader.tsx";
 import { useSort } from "../../hooks/useSort";
-
-type Coin = {
-  id: string;
-  rank: number;
-  name: string;
-  image: string;
-  current_price: number;
-  market_cap_change_percentage_24h: number;
-  price_change_percentage_24h: number;
-  price_change_24h: number;
-  total_volume: number;
-  market_cap: number;
-};
 
 function CoinList() {
   const navigate = useNavigate();
@@ -30,15 +19,19 @@ function CoinList() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
   const { sortedData, handleSort, sortOptions } = useSort(data);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
-  if (isLoading)
-    return <div className="flex items-center justify-center h-screen bg-[#1b0a62]"><Loader /></div>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#1b0a62]">
+        <Loader />
+      </div>
+    );
+  }
 
   if (error instanceof Error)
     return <div className="text-center text-red-500 text-lg mt-5">{error.message}</div>;
