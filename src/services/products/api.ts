@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import type { CoinResponse, CoinSearchResponse } from "../Types/types";
+import type { CoinResponse, CoinSearchResponse } from "../../lib/Types/types.ts";
 
 const API_KEY = "CG-YvgLJyYaAipFfW9An6vRNwkG";
 const MARKET_URL = "https://api.coingecko.com/api/v3/coins/markets";
@@ -15,16 +15,17 @@ const defaultOptions = {
   },
 };
 
-export async function fetchCoins(): Promise<CoinResponse[]> {
+export async function fetchCoins(): Promise<any[]> {
   const params = new URLSearchParams({
     vs_currency: "usd",
     order: "market_cap_desc",
-    sparkline: "false",
-    priceChange: "1h,24h,7d",
+    per_page: "250",
+    page: "1",
+    sparkline: "true",
+    price_change_percentage: "1h,24h,7d,30d",
   });
 
   const url = `${MARKET_URL}?${params}`;
-
   const response = await fetch(url, defaultOptions);
   if (!response.ok)
     throw new Error("Network response was not ok");

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 
-import { useCoinDetails } from "../../api/api.ts";
-import Loader from "../../components/common/loader";
+import Loader from "../../components/molecules/loader.tsx";
+import { useCoinDetails } from "../../services/products/api.ts";
 
 function CoinDetails() {
   const { id } = useParams();

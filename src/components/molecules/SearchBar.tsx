@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-import { useCoinSearch } from "../../api/api.ts";
+import { useCoinSearch } from "../../services/products/api.ts";
 
 function SearchBar() {
   const [query, setQuery] = useState("");

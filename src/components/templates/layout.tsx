@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import Header from "../components/common/header.tsx";
+import Header from "../molecules/header.tsx";
 
 function Layout() {
   return (
