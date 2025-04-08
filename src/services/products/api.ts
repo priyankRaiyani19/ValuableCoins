@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import type { CoinResponse, CoinSearchResponse } from "../../lib/Types/types.ts";
+import type { CoinResponse, CoinSearchResponse, MarketChartData } from "../../lib/Types/types.ts";
 
 const API_KEY = "CG-YvgLJyYaAipFfW9An6vRNwkG";
 const MARKET_URL = "https://api.coingecko.com/api/v3/coins/markets";
@@ -15,7 +15,7 @@ const defaultOptions = {
   },
 };
 
-export async function fetchCoins(): Promise<any[]> {
+export async function fetchCoins(): Promise<CoinResponse[]> {
   const params = new URLSearchParams({
     vs_currency: "usd",
     order: "market_cap_desc",
@@ -73,4 +73,34 @@ export function useCoinDetails(id: string) {
   });
 }
 
-export type { CoinResponse, CoinSearchResponse };
+export async function fetchMarketChart(
+  id: string,
+  currency = "usd",
+  days = "7", // Default 7 days
+): Promise<MarketChartData> {
+  const params = new URLSearchParams({
+    vs_currency: currency,
+    days,
+  });
+
+  const url = `${COIN_DETAIL_URL}/${id}/market_chart?${params}`;
+
+  const response = await fetch(url, defaultOptions);
+  if (!response.ok)
+    throw new Error("Failed to fetch market chart");
+  return response.json();
+}
+
+export function useMarketChart(
+  id: string,
+  currency = "usd",
+  days = "7",
+) {
+  return useQuery<MarketChartData, Error>({
+    queryKey: ["marketChart", id, currency, days],
+    queryFn: () => fetchMarketChart(id, currency, days),
+    enabled: !!id,
+  });
+}
+
+export type { CoinResponse, CoinSearchResponse, MarketChartData };

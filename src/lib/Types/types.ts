@@ -33,3 +33,14 @@ export type Coin = {
   total_volume: number;
   market_cap: number;
 };
+
+export type MarketChartData = {
+  prices: [number, number][];
+  market_caps: [number, number][];
+  total_volumes: [number, number][];
+};
+
+export type MarketChartPoint = [
+    timestamp: number,
+    value: number,
+];

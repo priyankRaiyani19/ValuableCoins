@@ -1,3 +1,4 @@
+import { CircleX } from "lucide-react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -10,20 +11,35 @@ function SearchBar() {
   const { data, isLoading, error } = useCoinSearch(query);
   const navigate = useNavigate();
 
+  const closeSearch = () => {
+    setShowResults(false);
+    setQuery("");
+  };
+
   return (
     <div className="relative w-[280px]">
       <div className="flex items-center bg-white/10 border border-white/30 backdrop-blur-md rounded-full px-4 py-2 transition-all duration-300 focus-within:shadow-lg">
-        <FaSearch className="text-white text-lg mr-2" />
-        <input
-          type="text"
-          placeholder="Search coins..."
-          className="bg-transparent text-white placeholder:text-gray-300 outline-none w-full text-sm"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setShowResults(true);
-          }}
-        />
+        <div className="flex">
+          {" "}
+          <FaSearch className="text-white text-lg mr-2" />
+          <input
+            type="text"
+            placeholder="Search coins..."
+            className="bg-transparent text-white placeholder:text-gray-300 outline-none w-full text-sm"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setShowResults(true);
+            }}
+          />
+        </div>
+        {
+          query !== "" && (
+            <div onClick={closeSearch}>
+              <CircleX className="h-[1.5rem] w-[1.5rem]" />
+            </div>
+          )
+        }
       </div>
 
       {showResults && query && (

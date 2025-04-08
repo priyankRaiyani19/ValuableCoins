@@ -1,4 +1,4 @@
-import SearchBar from "./SearchBar.tsx";
+import SearchBar from "./searchBar.tsx";
 
 function Header() {
   return (
