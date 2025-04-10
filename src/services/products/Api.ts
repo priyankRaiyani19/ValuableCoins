@@ -18,7 +18,7 @@ const defaultOptions = {
 export async function fetchCoins(params: UrlParams): Promise<CoinResponse[]> {
   try {
     const response = await axios.get(MARKET_URL, { params, ...defaultOptions });
-    console.log(response);
+    // console.log(response);
     return response.data;
   }
   catch (error) {
