@@ -12,6 +12,15 @@ export type CoinResponse = {
   price_change_24h: number;
 };
 
+export type UrlParams = {
+  vs_currency: string;
+  order: string;
+  per_page: string;
+  page: string;
+  sparkline: string;
+  price_change_percentage: string;
+};
+
 export type CoinSearchResponse = {
   coins: {
     id: string;

@@ -1,8 +1,8 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import Layout from "../components/templates/layout.tsx";
-import CoinDetails from "../pages/detail/CoinDetails.tsx";
-import CoinList from "../pages/table/CoinList.tsx";
+import Layout from "../layout/Layout.tsx";
+import CoinDetails from "../pages/coinDetail/CoinDetails.tsx";
+import CoinList from "../pages/home/CoinList.tsx";
 
 function RouterProvider() {
   return (
@@ -11,7 +11,7 @@ function RouterProvider() {
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<CoinList />} />
         <Route path="/coin/:id" element={<CoinDetails />} />
-
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );
